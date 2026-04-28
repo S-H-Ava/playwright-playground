@@ -1,0 +1,34 @@
+{
+  "name": "Playwright Playground",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-playwright.playwright",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "github.copilot.chat.agent.thinkingTool": true,
+        "mcp": {
+          "servers": {
+            "playwright": {
+              "command": "npx",
+              "args": ["-y", "@playwright/mcp@latest"],
+              "env": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "forwardPorts": [3000],
+  "postCreateCommand": "npm install && npx playwright install --with-deps chromium",
+  "remoteUser": "node"
+}
