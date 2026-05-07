@@ -30,7 +30,7 @@ npm run dev
 npm install
 
 # Playwrightブラウザのインストール（システム依存関係も含む）
-npx playwright install --with-deps chromium
+npx playwright install --with-deps chrome
 
 # 開発サーバーの起動
 npm run dev
