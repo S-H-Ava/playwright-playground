@@ -29,8 +29,8 @@ npm run dev
 # 依存パッケージのインストール
 npm install
 
-# Playwrightブラウザのインストール
-npx playwright install chromium
+# Playwrightブラウザのインストール（システム依存関係も含む）
+npx playwright install --with-deps chromium
 
 # 開発サーバーの起動
 npm run dev
@@ -38,21 +38,21 @@ npm run dev
 
 ## 🏪 ハンズオン用アプリ（プレイショップ）
 
-| ページ | URL | 説明 |
-|--------|-----|------|
-| ホーム | `http://localhost:3000` | トップページ |
-| 商品一覧 | `http://localhost:3000/products` | 検索・フィルター付き商品一覧 |
-| 商品詳細 | `http://localhost:3000/products/{id}` | 商品詳細・カート追加 |
-| カート | `http://localhost:3000/cart` | ショッピングカート |
-| ダッシュボード | `http://localhost:3000/dashboard` | 分析レポート（重い処理あり） |
+| ページ         | URL                                   | 説明                         |
+| -------------- | ------------------------------------- | ---------------------------- |
+| ホーム         | `http://localhost:3000`               | トップページ                 |
+| 商品一覧       | `http://localhost:3000/products`      | 検索・フィルター付き商品一覧 |
+| 商品詳細       | `http://localhost:3000/products/{id}` | 商品詳細・カート追加         |
+| カート         | `http://localhost:3000/cart`          | ショッピングカート           |
+| ダッシュボード | `http://localhost:3000/dashboard`     | 分析レポート（重い処理あり） |
 
 ## 📚 ハンズオンドキュメント
 
-| ファイル | 内容 |
-|----------|------|
+| ファイル                     | 内容             |
+| ---------------------------- | ---------------- |
 | `docs/01-test-automation.md` | テスト自動化演習 |
-| `docs/02-verification.md` | 動作確認演習 |
-| `docs/03-debugging.md` | デバッグ演習 |
+| `docs/02-verification.md`    | 動作確認演習     |
+| `docs/03-debugging.md`       | デバッグ演習     |
 
 ## 🧪 E2Eテストの実行
 

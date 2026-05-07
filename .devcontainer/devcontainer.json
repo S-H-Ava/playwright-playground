@@ -15,16 +15,7 @@
         "terminal.integrated.defaultProfile.linux": "bash",
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "github.copilot.chat.agent.thinkingTool": true,
-        "mcp": {
-          "servers": {
-            "playwright": {
-              "command": "npx",
-              "args": ["-y", "@playwright/mcp@latest"],
-              "env": {}
-            }
-          }
-        }
+        "github.copilot.chat.agent.thinkingTool": true
       }
     }
   },
