@@ -22,9 +22,10 @@ description: デバッグ演習 - GitHub Copilot と Playwright MCP を使って
 `browser_evaluate` で以下のJavaScriptを実行し、`/api/` の通信時間を取得してください。
 
 ```javascript
-performance.getEntriesByType("resource")
-  .filter(e => e.name.includes("/api/"))
-  .map(e => ({ url: e.name, duration: Math.round(e.duration) }))
+performance
+  .getEntriesByType("resource")
+  .filter((e) => e.name.includes("/api/"))
+  .map((e) => ({ url: e.name, duration: Math.round(e.duration) }));
 ```
 
 ### 手順 3: フロントエンドコードに計測ログを追加する
@@ -43,9 +44,9 @@ performance.getEntriesByType("resource")
 
 調査結果をもとに、以下の形式でレポートを作成してください。
 
-| 処理 | 所要時間 | 評価 |
-|------|---------|------|
-| /api/analytics （Performance API計測） | Xms | ✅ |
-| （ログで特定した各関数） | Xms | 🐌/✅ |
+| 処理                                   | 所要時間 | 評価  |
+| -------------------------------------- | -------- | ----- |
+| /api/analytics （Performance API計測） | Xms      | ✅    |
+| （ログで特定した各関数）               | Xms      | 🐌/✅ |
 
 **ボトルネックはフロントエンドのJS処理にあります。** 原因なる関数とコード上の原因、短期・中長期的改善提案をまとめてください。
