@@ -42,3 +42,6 @@ test-results/
 
 # nohup
 nohup.out
+
+# screenshots
+screenshots/

@@ -3,7 +3,7 @@ agent: agent
 description: 検索・カート操作・購入フローのE2Eテスト
 ---
 
-## 作業内容
+## 依頼内容
 
 以下の3つのE2EテストをPlaywright MCPで作成してください。
 
