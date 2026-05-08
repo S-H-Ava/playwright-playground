@@ -1,112 +1,51 @@
 ---
 agent: agent
-description: デバッグ演習 - Playwright MCPを使ってパフォーマンス問題を特定する
+description: デバッグ演習 - GitHub Copilot と Playwright MCP を使ってフロントエンドのパフォーマンス問題を調査する
 ---
 
-# デバッグ演習 - プロンプトテンプレート
+# デバッグ演習 - 正解プロンプト例
 
-以下の手順でPlaywright MCPを使ってJavaScriptを実行し、ダッシュボードの重い処理を特定してください。
+プレイショップのダッシュボードでパフォーマンス問題が報告されています。GitHub Copilot と Playwright MCP を使って原因を調査し、パフォーマンス分析レポートを作成してください。
 
-## 前提: ブラウザ設定
+## 背景
 
-Playwright MCPはChromeブラウザを使用してください。
+`http://localhost:3000/dashboard` の「レポートを生成」ボタンを押すと処理に数秒かかると報告があります。コードにはパフォーマンスに関するログや計測情報が一切ありません。
 
-## ステップ1: ダッシュボードページを開く
+## 依頼内容
 
-`browser_navigate` を使って `http://localhost:3000/dashboard` を開き、
-`browser_snapshot` でページの状態を確認してください。
+### 手順 1: 問題の再現
 
-## ステップ2: パフォーマンス計測の準備
+`http://localhost:3000/dashboard` を開き、「レポートを生成」ボタンを押して処理が完了するまで待機し、完了した画面のスクリーンショットを撮影してください。
 
-`browser_evaluate` を使って以下のJavaScriptを実行し、パフォーマンス計測の準備をしてください：
+### 手順 2: Performance API でネットワークを確認する
 
-```javascript
-// パフォーマンス計測の開始
-performance.clearMarks();
-performance.clearMeasures();
-console.log("パフォーマンス計測の準備完了");
-```
-
-## ステップ3: レポート生成の実行と計測
-
-1. `data-testid="generate-report-button"` ボタンをクリックしてレポート生成を開始する
-2. `browser_wait_for` を使って `data-testid="report-results"` が表示されるまで待機する（タイムアウト: 30秒）
-3. `browser_screenshot` でレポート生成後の画面を撮影する
-
-## ステップ4: パフォーマンス情報の収集
-
-`browser_evaluate` を使って以下のJavaScriptを実行し、パフォーマンス情報を収集してください：
+`browser_evaluate` で以下のJavaScriptを実行し、`/api/` の通信時間を取得してください。
 
 ```javascript
-// パフォーマンスエントリの取得
-const entries = performance.getEntriesByType("resource");
-const apiCalls = entries.filter((e) => e.name.includes("/api/"));
-
-return apiCalls.map((e) => ({
-  url: e.name,
-  duration: Math.round(e.duration),
-  startTime: Math.round(e.startTime),
-  transferSize: e.transferSize,
-}));
+performance.getEntriesByType("resource")
+  .filter(e => e.name.includes("/api/"))
+  .map(e => ({ url: e.name, duration: Math.round(e.duration) }))
 ```
 
-## ステップ5: 処理時間の内訳を確認
+### 手順 3: フロントエンドコードに計測ログを追加する
 
-`browser_evaluate` を使って、ダッシュボードに表示されている処理時間の内訳を取得してください：
+`src/app/dashboard/page.tsx` を確認し、データ取得後に実行される各関数に `console.time` / `console.timeEnd` を追加してください。どの処理にどれくらい時間がかかっているかがブラウザコンソールに出力されるようにしてください。
 
-```javascript
-// 画面上の処理時間データを取得
-const dataFetch = document.querySelector(
-  '[data-testid="data-fetch-duration"]',
-)?.textContent;
-const processing = document.querySelector(
-  '[data-testid="processing-duration"]',
-)?.textContent;
-const total = document.querySelector(
-  '[data-testid="total-duration"]',
-)?.textContent;
+### 手順 4: ログを収集して分析する
 
-return {
-  dataFetchDuration: dataFetch,
-  processingDuration: processing,
-  totalDuration: total,
-};
-```
+計測ログを追加したら、ダッシュボードで再度レポートを生成し、`browser_console_messages` でブラウザコンソールのログを確認してください。
 
-## ステップ6: ボトルネックの特定と分析
+### 手順 5: コードを読んで根本原因を特定する
 
-収集した情報をもとに、以下の分析を行ってください：
+ログから特定した遅い関数について、`src/app/dashboard/page.tsx` のコードを読んでなぜ遅いのか具体的に説明してください。
 
-1. **最も時間がかかった処理はどれか？**
-   - データ取得（`/api/analytics` APIの呼び出し）
-   - データ処理（集計・ソート処理）
+### 手順 6: パフォーマンス分析レポート
 
-2. **改善案を提案する**
-   - APIのレスポンスキャッシュ
-   - 処理の非同期化・並列化
-   - ページネーションによるデータ量の削減
-   - Webワーカーを使ったバックグラウンド処理
+調査結果をもとに、以下の形式でレポートを作成してください。
 
-## 期待する分析レポートの形式
+| 処理 | 所要時間 | 評価 |
+|------|---------|------|
+| /api/analytics （Performance API計測） | Xms | ✅ |
+| （ログで特定した各関数） | Xms | 🐌/✅ |
 
-```markdown
-# パフォーマンス分析レポート
-
-## 計測結果
-
-| 処理                      | 所要時間 | 評価              |
-| ------------------------- | -------- | ----------------- |
-| データ取得（API呼び出し） | XXXms    | 🐌 遅い / ✅ 正常 |
-| データ処理（集計処理）    | XXXms    | 🐌 遅い / ✅ 正常 |
-| 合計                      | XXXms    | -                 |
-
-## ボトルネック
-
-最も時間がかかっている処理: **{処理名}**
-理由: ...
-
-## 改善提案
-
-1. ...
-2. ...
-```
+**ボトルネックはフロントエンドのJS処理にあります。** 原因なる関数とコード上の原因、短期・中長期的改善提案をまとめてください。
