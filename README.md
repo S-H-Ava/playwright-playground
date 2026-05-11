@@ -59,9 +59,6 @@ npm run dev
 ```bash
 # テストの実行
 npm run test:e2e
-
-# UIモードで実行
-npm run test:e2e:ui
 ```
 
 ## 📁 ディレクトリ構成
