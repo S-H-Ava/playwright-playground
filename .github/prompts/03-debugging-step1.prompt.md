@@ -14,11 +14,7 @@ Playwright MCPを使ってChromeブラウザを操作し、処理時間を計測
 
 以下の手段を利用して調査してください。
 
-- ネットワーク通信時間の確認
-  `browser_evaluate` で `performance.getEntriesByType('resource')` を実行
-- JavaScriptを使ったevaluate
-  `browser_evaluate` でフロントエンドの状態・状況を取得 |
-- フロントエンドコードへのログ追加
-  ブラウザで動く JS の各処理に計測ログを埋め込み、 `browser_console_messages` でログを確認
-- ソースコード調査
-  フロントエンドのコードを読んで怪しい処理を探す
+- ネットワーク通信時間の確認: `browser_evaluate` で `performance.getEntriesByType('resource')` を実行など
+- JavaScriptを使ったevaluate: `browser_evaluate` でフロントエンドの状態・状況を取得など
+- フロントエンドコードへのログ追加: ブラウザで動く JS の各処理に計測ログを埋め込み、 `browser_console_messages` でログを確認など
+- ソースコード調査: フロントエンドのコードを読んで怪しい処理を探すなど
