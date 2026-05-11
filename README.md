@@ -25,6 +25,8 @@ npm run dev
 
 ### ローカルで使う場合
 
+- `Node.js 20.x 以上` が必要です。n/nvm/voltaなどでローカルにインストールしてください。
+
 ```bash
 # 依存パッケージのインストール
 npm install
