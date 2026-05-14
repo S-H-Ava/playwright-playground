@@ -2,7 +2,7 @@
   "servers": {
     "playwright": {
       "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest", "--headless"]
+      "args": ["-y", "@playwright/mcp@latest", "--browser", "msedge", "--headless", "--no-sandbox"]
     }
   }
 }
