@@ -20,6 +20,6 @@
     }
   },
   "forwardPorts": [3000],
-  "postCreateCommand": "npm install && npx playwright install --with-deps chrome",
+  "postCreateCommand": "npm install && npx playwright install --with-deps msedge",
   "remoteUser": "node"
 }
